@@ -45,9 +45,11 @@ fin1 = font1.render("Player 2 win!", 1, (0, 255, 0))
 fin2 = font1.render("Player 1 win!", 1, (0, 255, 0)) 
 rok1 = Player("raketka.png", 10, 50, 50, 150, 7)
 rok2 = Player("raketka.png", 645, 400, 50, 150, 7)
-ball = Ball("algoball.png", 80 , 50, 50, 50, 8, 8) 
+ball = Ball("algoball.png", 270 , 320, 50, 50, 8, 8) 
 pl1 = font1.render("Player 1", 1, (0, 255, 0))
 pl2 = font1.render("Player 2", 1, (0, 255, 0))
+kub1 = GameSprite("algokub.png", 50, 70, 150, 150, 0)
+kub2 = GameSprite("algokub.png", 520, 70, 150, 150, 0)
 
 window = display.set_mode((widht, hight))
 display.set_caption("Ping-Pong")
@@ -70,9 +72,13 @@ while run:
     if ball.rect.x < 0:
         finish = True
         window.blit(fin1, (260, 300))
+        kub2.reset()
+        kub2.update()
     if ball.rect.x > 650:
         finish = True
         window.blit(fin2, (260, 300))
+        kub1.reset()
+        kub1.update()
     if sprite.collide_rect(ball, rok1) or sprite.collide_rect(ball, rok2):
         ball.speed *= -1
     display.update()

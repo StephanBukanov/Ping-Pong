@@ -39,16 +39,20 @@ class Ball(GameSprite):
         if self.rect.y > 550:
             self.speed2 *= -1
         
-
-
+font.init()
+font1 = font.Font(None, 40)
+fin1 = font1.render("Player 2 win!", 1, (0, 255, 0)) 
+fin2 = font1.render("Player 1 win!", 1, (0, 255, 0)) 
 rok1 = Player("raketka.png", 10, 50, 50, 150, 7)
-rok2 = Player("raketka.png", 645, 50, 50, 150, 7)
-ball = Ball("algoball.png", 80 , 50, 50, 50, 10, 10) 
+rok2 = Player("raketka.png", 645, 400, 50, 150, 7)
+ball = Ball("algoball.png", 80 , 50, 50, 50, 8, 8) 
+pl1 = font1.render("Player 1", 1, (0, 255, 0))
+pl2 = font1.render("Player 2", 1, (0, 255, 0))
 
 window = display.set_mode((widht, hight))
 display.set_caption("Ping-Pong")
 window.fill((200, 200, 255))
-
+finish = False
 run = True
 while run:
     window.fill((200, 200, 255))
@@ -59,8 +63,16 @@ while run:
     ball.update()
     rok1.reset()
     rok1.update1()
+    window.blit(pl1, (15, 15))
+    window.blit(pl2, (575, 15))
     rok2.reset()
     rok2.update2()
+    if ball.rect.x < 0:
+        finish = True
+        window.blit(fin1, (260, 300))
+    if ball.rect.x > 650:
+        finish = True
+        window.blit(fin2, (260, 300))
     if sprite.collide_rect(ball, rok1) or sprite.collide_rect(ball, rok2):
         ball.speed *= -1
     display.update()
